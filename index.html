@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Ultimate Ubuntu Command Encyclopedia — Starter</title>
+<style>
+  :root{--bg:#0f1724;--card:#0b1220;--muted:#9aa6b2;--accent:#60a5fa;--accent2:#7dd3fc}
+  body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; background:linear-gradient(180deg,#071029, #071b2b); color:#e6eef6; margin:0;}
+  header{padding:24px 28px;border-bottom:1px solid rgba(255,255,255,0.03); display:flex;align-items:center;gap:16px}
+  h1{margin:0;font-size:20px}
+  p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
+  main{padding:20px;max-width:1200px;margin:0 auto}
+  nav.toc{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+  .chip{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:8px 12px;border-radius:999px; color:var(--muted); font-size:13px; cursor:pointer;}
+  .chip:hover{color:#fff}
+  .search{margin:8px 0; display:flex; gap:8px; align-items:center}
+  input[type=search]{flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#e6eef6}
+  table{width:100%;border-collapse:collapse;margin-top:8px}
+  th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.03); text-align:left; font-size:13px}
+  th{color:var(--accent); font-weight:600; position:sticky; top:0; background:linear-gradient(90deg, rgba(0,0,0,0.25), rgba(0,0,0,0.15))}
+  section.card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); padding:14px;border-radius:12px;margin:18px 0;border:1px solid rgba(255,255,255,0.02)}
+  details summary{cursor:pointer; list-style:none; font-size:16px; font-weight:600; color:#fff; margin:6px 0}
+  details[open] summary{color:var(--accent2)}
+  .meta{color:var(--muted); font-size:13px;margin-bottom:6px}
+  footer{padding:20px;text-align:center;color:var(--muted); font-size:13px}
+  .small{font-size:12px;color:var(--muted)}
+  .note{background:rgba(255,255,255,0.02); padding:8px;border-radius:8px;color:var(--muted); font-size:13px}
+  .kbd{background:#071b2b;border:1px solid rgba(255,255,255,0.02); padding:2px 6px;border-radius:6px;font-family:monospace}
+  .tag{font-size:12px;color:var(--muted);margin-left:6px}
+  @media (max-width:800px){ th,td{font-size:12px} }
+</style>
+</head>
+<body>
+<header>
+  <div style="display:flex;flex-direction:column">
+    <h1>Ultimate Ubuntu Command Encyclopedia — Starter</h1>
+    <p class="lead">Organized, searchable HTML reference covering Core → Security → DevOps → Misc. (Hundreds of commands)</p>
+  </div>
+  <div style="margin-left:auto;color:var(--muted);font-size:13px">Format: Command • Description • Example</div>
+</header>
+
+<main>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search commands, descriptions, examples (try: rsync, systemctl, awk, xargs)"/>
+    <button class="chip" onclick="resetFilters()">Reset</button>
+    <button class="chip" onclick="expandAll()">Expand all</button>
+    <button class="chip" onclick="collapseAll()">Collapse all</button>
+  </div>
+
+  <nav class="toc">
+    <div class="chip" onclick="scrollToId('core')">🧩 Core & Files</div>
+    <div class="chip" onclick="scrollToId('users')">🧠 Users & Processes</div>
+    <div class="chip" onclick="scrollToId('systemd')">⚙️ Systemd & Kernel</div>
+    <div class="chip" onclick="scrollToId('network')">🌐 Network & SSH</div>
+    <div class="chip" onclick="scrollToId('storage')">💾 Disks & LVM</div>
+    <div class="chip" onclick="scrollToId('security')">🔐 Security & Encryption</div>
+    <div class="chip" onclick="scrollToId('dev')">🧱 Development Tools</div>
+    <div class="chip" onclick="scrollToId('debug')">🧰 Debugging & Profiling</div>
+    <div class="chip" onclick="scrollToId('automation')">🧾 Automation & Scripting</div>
+    <div class="chip" onclick="scrollToId('misc')">🧠 Misc & Fun</div>
+  </nav>
+
+  <div class="note">Tip: Use the search box above to filter table rows. You can export this page to PDF from your browser if you want an offline copy.</div>
+
+  <!-- SECTION: Core System & File Commands -->
+  <section id="core" class="card">
+    <details open>
+      <summary>🧩 Core System & File Commands</summary>
+      <div class="meta">Basic → advanced file, path, identification, file metadata, and filesystem helpers.</div>
+      <table class="cmdtable">
+        <thead><tr><th>Command</th><th>Description</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>pwd</code></td><td>Print working directory (current path)</td><td><code>pwd</code></td></tr>
+          <tr><td><code>ls</code></td><td>List directory contents (use <code>-l</code>, <code>-a</code>, <code>-h</code>)</td><td><code>ls -lhA /etc</code></td></tr>
+          <tr><td><code>tree</code></td><td>Visual tree of directories (install via <code>apt</code>)</td><td><code>tree -L 2 /var/www</code></td></tr>
+          <tr><td><code>cd</code></td><td>Change directory</td><td><code>cd /home/user/projects</code></td></tr>
+          <tr><td><code>mkdir</code></td><td>Create directory; use <code>-p</code> for parents</td><td><code>mkdir -p ~/projects/app/src</code></td></tr>
+          <tr><td><code>rmdir</code></td><td>Remove empty directory</td><td><code>rmdir old_dir</code></td></tr>
+          <tr><td><code>cp</code></td><td>Copy files and directories (<code>-r</code> recursive, <code>-a</code> archive)</td><td><code>cp -a src/ dest/</code></td></tr>
+          <tr><td><code>mv</code></td><td>Move or rename files/directories</td><td><code>mv oldname newname</code></td></tr>
+          <tr><td><code>rm</code></td><td>Remove files/directories (careful — destructive)</td><td><code>rm -rf build/</code></td></tr>
+          <tr><td><code>touch</code></td><td>Create empty file or update timestamps</td><td><code>touch notes/todo.md</code></td></tr>
+          <tr><td><code>stat</code></td><td>Display file status: size, permissions, timestamps</td><td><code>stat /etc/hosts</code></td></tr>
+          <tr><td><code>file</code></td><td>Detect file type (magic byte inspection)</td><td><code>file /bin/ls</code></td></tr>
+          <tr><td><code>basename</code></td><td>Strip directory and suffix from filename</td><td><code>basename /etc/ssl/certs/ca.pem</code></td></tr>
+          <tr><td><code>dirname</code></td><td>Strip last component from path</td><td><code>dirname /etc/ssh/sshd_config</code></td></tr>
+          <tr><td><code>readlink</code></td><td>Print value of a symbolic link</td><td><code>readlink -f /usr/bin/python</code></td></tr>
+          <tr><td><code>ln</code></td><td>Create hard and symbolic links (<code>-s</code> for symlink)</td><td><code>ln -s /var/www html</code></td></tr>
+          <tr><td><code>find</code></td><td>Search for files by name, type, size, mtime; supports <code>-exec</code></td><td><code>find /var/log -type f -name '*.log' -mtime -7</code></td></tr>
+          <tr><td><code>locate</code></td><td>Find files quickly using a database (run <code>updatedb</code>)</td><td><code>locate sshd_config</code></td></tr>
+          <tr><td><code>updatedb</code></td><td>Update the locate database (usually root)</td><td><code>sudo updatedb</code></td></tr>
+          <tr><td><code>which</code></td><td>Show full path to an executable</td><td><code>which ls</code></td></tr>
+          <tr><td><code>whereis</code></td><td>Locate binary, source, and man page</td><td><code>whereis ssh</code></td></tr>
+          <tr><td><code>type</code></td><td>Tell whether a name is builtin, function or file</td><td><code>type cd</code></td></tr>
+          <tr><td><code>alias</code></td><td>Define command shortcuts in shell session</td><td><code>alias ll='ls -lh'</code></td></tr>
+          <tr><td><code>unalias</code></td><td>Remove an alias</td><td><code>unalias ll</code></td></tr>
+          <tr><td><code>chmod</code></td><td>Change file mode/permissions (symbolic or numeric)</td><td><code>chmod 750 script.sh</code></td></tr>
+          <tr><td><code>chown</code></td><td>Change file owner and group</td><td><code>sudo chown -R www-data:www-data /var/www</code></td></tr>
+          <tr><td><code>umask</code></td><td>Set default file creation permissions</td><td><code>umask 022</code></td></tr>
+          <tr><td><code>getfacl</code></td><td>Show POSIX ACLs for a file</td><td><code>getfacl /var/www/index.html</code></td></tr>
+          <tr><td><code>setfacl</code></td><td>Set POSIX ACL entries</td><td><code>setfacl -m u:alice:rwx file</code></td></tr>
+          <tr><td><code>truncate</code></td><td>Shrink or extend file to specified size</td><td><code>truncate -s 0 logfile</code></td></tr>
+          <tr><td><code>du</code></td><td>Estimate file and directory space usage</td><td><code>du -sh /var/log</code></td></tr>
+          <tr><td><code>df</code></td><td>Report filesystem disk space usage</td><td><code>df -hT</code></td></tr>
+          <tr><td><code>lsblk</code></td><td>List block devices (disks, partitions)</td><td><code>lsblk -f</code></td></tr>
+          <tr><td><code>blkid</code></td><td>Locate/print block device attributes (UUID, TYPE)</td><td><code>sudo blkid /dev/sdb1</code></td></tr>
+          <tr><td><code>mount</code></td><td>Mount a filesystem</td><td><code>sudo mount /dev/sdb1 /mnt/usb</code></td></tr>
+          <tr><td><code>umount</code></td><td>Unmount filesystem</td><td><code>sudo umount /mnt/usb</code></td></tr>
+          <tr><td><code>stat</code></td><td>Retrieve file or filesystem status</td><td><code>stat /etc/hosts</code></td></tr>
+          <tr><td><code>cpio</code></td><td>Copy files into/out of archives (less common than tar)</td><td><code>find . -print | cpio -o > archive.cpio</code></td></tr>
+          <tr><td><code>rsync</code></td><td>Fast, versatile file copy & sync (local & remote)</td><td><code>rsync -avz /home/user/ user@backup:/backup/</code></td></tr>
+          <tr><td><code>stat</code></td><td>Display detailed file status</td><td><code>stat /var/log/syslog</code></td></tr>
+          <tr><td><code>scp</code></td><td>Copy files over SSH (simple remote copy)</td><td><code>scp file user@host:/tmp/</code></td></tr>
+          <tr><td><code>sftp</code></td><td>Interactive secure FTP over SSH</td><td><code>sftp user@host</code></td></tr>
+          <tr><td><code>sha256sum</code></td><td>Compute/verify SHA256 checksums</td><td><code>sha256sum file.iso</code></td></tr>
+          <tr><td><code>md5sum</code></td><td>Compute/verify MD5 checksums</td><td><code>md5sum file.tar.gz</code></td></tr>
+          <tr><td><code>cmp</code></td><td>Compare two files byte-by-byte</td><td><code>cmp file1 file2</code></td></tr>
+          <tr><td><code>comm</code></td><td>Compare two sorted files line by line</td><td><code>comm -12 fileA fileB</code></td></tr>
+          <tr><td><code>xargs</code></td><td>Build and run commands from STDIN (use <code>-0</code> with <code>-print0</code>)</td><td><code>find . -name '*.tmp' -print0 | xargs -0 rm -v</code></td></tr>
+          <tr><td><code>yes</code></td><td>Output a string repeatedly — used to auto-confirm prompts</td><td><code>yes | some-installer</code></td></tr>
+        </tbody>
+      </table>
+
+      <p class="small">Core notes: use <code>-h</code> for human-friendly sizes (e.g. <code>ls -lh</code>, <code>df -h</code>) and always prefer the safe options (<code>-i</code> interactive or dry-run flags like <code>--dry-run</code>) before destructive commands.</p>
+    </details>
+  </section>
+
+  <!-- SECTION: Users, Permissions, Processes -->
+  <section id="users" class="card">
+    <details>
+      <summary>🧠 User, Permission & Process Commands</summary>
+      <div class="meta">User account management, groups, sudo, process control, job control and priority management.</div>
+      <table class="cmdtable">
+        <thead><tr><th>Command</th><th>Description</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>whoami</code></td><td>Print effective username</td><td><code>whoami</code></td></tr>
+          <tr><td><code>id</code></td><td>Display UID, GID and group membership</td><td><code>id alice</code></td></tr>
+          <tr><td><code>adduser</code></td><td>Interactive add user (friendly wrapper)</td><td><code>sudo adduser dev</code></td></tr>
+          <tr><td><code>useradd</code></td><td>Low-level add user</td><td><code>sudo useradd -m -s /bin/bash dev</code></td></tr>
+          <tr><td><code>deluser</code></td><td>Remove a user (friendly)</td><td><code>sudo deluser guest</code></td></tr>
+          <tr><td><code>passwd</code></td><td>Change user password</td><td><code>sudo passwd alice</code></td></tr>
+          <tr><td><code>usermod</code></td><td>Modify user attributes (use -aG to append group)</td><td><code>sudo usermod -aG docker alice</code></td></tr>
+          <tr><td><code>groupadd</code></td><td>Create new group</td><td><code>sudo groupadd devops</code></td></tr>
+          <tr><td><code>groupdel</code></td><td>Delete group</td><td><code>sudo groupdel oldgroup</code></td></tr>
+          <tr><td><code>groups</code></td><td>Show groups for user</td><td><code>groups alice</code></td></tr>
+          <tr><td><code>chown</code></td><td>Change file owner and group</td><td><code>sudo chown -R deploy:deploy /srv/app</code></td></tr>
+          <tr><td><code>chmod</code></td><td>Change file permissions</td><td><code>chmod 644 /etc/hosts</code></td></tr>
+          <tr><td><code>setfacl</code></td><td>Set ACL entries for fine-grained permission control</td><td><code>setfacl -m u:alice:rw /data/report.csv</code></td></tr>
+          <tr><td><code>getfacl</code></td><td>Show ACL entries</td><td><code>getfacl /data/report.csv</code></td></tr>
+          <tr><td><code>sudo</code></td><td>Execute command as another user (default root)</td><td><code>sudo systemctl restart nginx</code></td></tr>
+          <tr><td><code>visudo</code></td><td>Edit the sudoers file safely</td><td><code>sudo visudo</code></td></tr>
+          <tr><td><code>su</code></td><td>Switch user (substitute user); login shell with <code>-</code></td><td><code>su - root</code></td></tr>
+          <tr><td><code>ps</code></td><td>Report process status (use <code>ps aux</code> or <code>ps -ef</code>)</td><td><code>ps aux | grep java</code></td></tr>
+          <tr><td><code>top</code></td><td>Interactive process viewer</td><td><code>top</code></td></tr>
+          <tr><td><code>htop</code></td><td>Enhanced interactive process viewer (install)</td><td><code>htop</code></td></tr>
+          <tr><td><code>nice</code></td><td>Start process with a modified scheduling priority</td><td><code>nice -n 10 longjob</code></td></tr>
+          <tr><td><code>renice</code></td><td>Change priority of running process</td><td><code>sudo renice -n 5 -p 1234</code></td></tr>
+          <tr><td><code>kill</code></td><td>Send a signal to a process (default SIGTERM)</td><td><code>kill 2345</code></td></tr>
+          <tr><td><code>kill -9</code></td><td>Forcefully terminate process (SIGKILL)</td><td><code>kill -9 2345</code></td></tr>
+          <tr><td><code>pkill</code></td><td>Send signals by process name or pattern</td><td><code>pkill -f python</code></td></tr>
+          <tr><td><code>killall</code></td><td>Kill processes by exact name</td><td><code>killall nginx</code></td></tr>
+          <tr><td><code>jobs</code></td><td>List jobs started in current shell</td><td><code>jobs -l</code></td></tr>
+          <tr><td><code>fg</code></td><td>Bring a job to foreground</td><td><code>fg %1</code></td></tr>
+          <tr><td><code>bg</code></td><td>Resume a job in background</td><td><code>bg %1</code></td></tr>
+          <tr><td><code>nohup</code></td><td>Run command immune to hangups (redirects output)</td><td><code>nohup ./server &</code></td></tr>
+          <tr><td><code>systemd-run</code></td><td>Run a command in a transient systemd service</td><td><code>systemd-run --unit=once --slice=machine.slice sleep 60</code></td></tr>
+          <tr><td><code>pstree</code></td><td>Display process tree</td><td><code>pstree -p</code></td></tr>
+          <tr><td><code>pgrep</code></td><td>Find processes based on name and other attributes</td><td><code>pgrep -u alice -l</code></td></tr>
+          <tr><td><code>lsof</code></td><td>List open files (and sockets) — useful for diagnosing port/file locks</td><td><code>sudo lsof -iTCP:80 -sTCP:LISTEN</code></td></tr>
+          <tr><td><code>fuser</code></td><td>Show PID using a file or socket (can kill them too)</td><td><code>sudo fuser -k /var/www/html</code></td></tr>
+        </tbody>
+      </table>
+
+      <p class="small">Process tips: prefer <code>systemctl</code> service control for system services; use <code>nohup</code> or systemd units for long-running tasks; use <code>nice</code>/<code>renice</code> for resource management under load.</p>
+    </details>
+  </section>
+
+  <!-- SECTION: Systemd, Boot, Kernel -->
+  <section id="systemd" class="card">
+    <details>
+      <summary>⚙️ Systemd, Boot & Kernel Tools</summary>
+      <div class="meta">Manage services, logs, boot, kernel modules, initramfs, grub, and kernel parameters.</div>
+      <table class="cmdtable">
+        <thead><tr><th>Command</th><th>Description</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>systemctl status</code></td><td>Show status of a systemd unit</td><td><code>sudo systemctl status nginx.service</code></td></tr>
+          <tr><td><code>systemctl start/stop/restart</code></td><td>Start, stop or restart services</td><td><code>sudo systemctl restart ssh</code></td></tr>
+          <tr><td><code>systemctl enable/disable</code></td><td>Enable/disable unit at boot</td><td><code>sudo systemctl enable docker</code></td></tr>
+          <tr><td><code>systemctl daemon-reload</code></td><td>Reload unit files after editing</td><td><code>sudo systemctl daemon-reload</code></td></tr>
+          <tr><td><code>systemctl list-units</code></td><td>List active units</td><td><code>systemctl list-units --type=service</code></td></tr>
+          <tr><td><code>journalctl</code></td><td>Query systemd journal logs</td><td><code>sudo journalctl -u nginx -b -1</code></td></tr>
+          <tr><td><code>journalctl -f</code></td><td>Follow logs in real-time</td><td><code>sudo journalctl -u ssh -f</code></td></tr>
+          <tr><td><code>journalctl --vacuum-time</code></td><td>Prune journal logs older than specified time</td><td><code>sudo journalctl --vacuum-time=7d</code></td></tr>
+          <tr><td><code>systemctl mask</code></td><td>Prevent a unit from being started (even manually)</td><td><code>sudo systemctl mask some.service</code></td></tr>
+          <tr><td><code>systemctl is-enabled</code></td><td>Check if unit is enabled at boot</td><td><code>systemctl is-enabled ssh</code></td></tr>
+          <tr><td><code>sudo update-grub</code></td><td>Update GRUB bootloader configuration</td><td><code>sudo update-grub</code></td></tr>
+          <tr><td><code>grub-install</code></td><td>Install grub to device (use carefully)</td><td><code>sudo grub-install /dev/sda</code></td></tr>
+          <tr><td><code>uname -r</code></td><td>Show current kernel version</td><td><code>uname -r</code></td></tr>
+          <tr><td><code>uname -a</code></td><td>Detailed kernel and machine info</td><td><code>uname -a</code></td></tr>
+          <tr><td><code>dmesg</code></td><td>Read kernel ring buffer / boot messages</td><td><code>dmesg | tail -n 50</code></td></tr>
+          <tr><td><code>lsmod</code></td><td>List loaded kernel modules</td><td><code>lsmod</code></td></tr>
+          <tr><td><code>modprobe</code></td><td>Insert/Load kernel module</td><td><code>sudo modprobe ip_tables</code></td></tr>
+          <tr><td><code>rmmod</code></td><td>Remove kernel module</td><td><code>sudo rmmod vboxdrv</code></td></tr>
+          <tr><td><code>depmod</code></td><td>Generate module dependency lists</td><td><code>sudo depmod -a</code></td></tr>
+          <tr><td><code>sysctl</code></td><td>Read & write kernel parameters at runtime</td><td><code>sudo sysctl -w net.ipv4.ip_forward=1</code></td></tr>
+          <tr><td><code>sysctl -p</code></td><td>Load sysctl settings from <code>/etc/sysctl.conf</code></td><td><code>sudo sysctl -p</code></td></tr>
+          <tr><td><code>update-initramfs</code></td><td>Regenerate initramfs images</td><td><code>sudo update-initramfs -u -k all</code></td></tr>
+          <tr><td><code>systemctl reboot/poweroff</code></td><td>Reboot or power off the machine</td><td><code>sudo systemctl reboot</code></td></tr>
+          <tr><td><code>shutdown</code></td><td>Schedule shutdown/reboot</td><td><code>sudo shutdown -h +10</code></td></tr>
+          <tr><td><code>bootctl</code></td><td>Manage systemd-boot entries (UEFI)</td><td><code>bootctl list</code></td></tr>
+          <tr><td><code>systemd-analyze</code></td><td>Analyze boot performance</td><td><code>systemd-analyze blame</code></td></tr>
+          <tr><td><code>journalctl --disk-usage</code></td><td>Show journal disk usage</td><td><code>journalctl --disk-usage</code></td></tr>
+          <tr><td><code>systemctl cat</code></td><td>Show unit file content and drop-ins</td><td><code>systemctl cat nginx.service</code></td></tr>
+        </tbody>
+      </table>
+
+      <p class="small">Systemd tips: Put unit files you manage under <code>/etc/systemd/system/</code>. Use <code>systemctl daemon-reload</code> after editing service files and check logs via <code>journalctl -u your.service</code>.</p>
+    </details>
+  </section>
+
+  <!-- SECTION: Network, SSH, Internet -->
+  <section id="network" class="card">
+    <details>
+      <summary>🌐 Network, SSH & Internet Tools</summary>
+      <div class="meta">Tools to inspect, configure and debug networking, plus SSH, secure transfers and HTTP clients.</div>
+      <table class="cmdtable">
+        <thead><tr><th>Command</th><th>Description</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>ip a</code></td><td>Show IP addresses and network interfaces</td><td><code>ip a</code></td></tr>
+          <tr><td><code>ip link</code></td><td>Show/show link status</td><td><code>ip link show dev eth0</code></td></tr>
+          <tr><td><code>ip route</code></td><td>Show routing table</td><td><code>ip route show</code></td></tr>
+          <tr><td><code>ss</code></td><td>Socket statistics (modern alternative to netstat)</td><td><code>ss -tuln</code></td></tr>
+          <tr><td><code>netstat</code></td><td>Network connections, routing, interface stats (legacy)</td><td><code>sudo netstat -tulpn</code></td></tr>
+          <tr><td><code>ping</code></td><td>Send ICMP ECHO_REQUEST to network hosts</td><td><code>ping -c 4 8.8.8.8</code></td></tr>
+          <tr><td><code>traceroute</code></td><td>Trace path to host</td><td><code>traceroute google.com</code></td></tr>
+          <tr><td><code>mtr</code></td><td>Combined ping + traceroute (interactive)</td><td><code>mtr -r google.com</code></td></tr>
+          <tr><td><code>dig</code></td><td>DNS lookup utility</td><td><code>dig +short example.com</code></td></tr>
+          <tr><td><code>nslookup</code></td><td>DNS lookup (legacy)</td><td><code>nslookup example.com</code></td></tr>
+          <tr><td><code>curl</code></td><td>Transfer data with URL syntax (HTTP client)</td><td><code>curl -I https://example.com</code></td></tr>
+          <tr><td><code>wget</code></td><td>Download files from web (non-interactive)</td><td><code>wget -c https://example.com/file.iso</code></td></tr>
+          <tr><td><code>ssh</code></td><td>OpenSSH client — remote shell access</td><td><code>ssh -A -J jump user@target</code></td></tr>
+          <tr><td><code>ssh-keygen</code></td><td>Generate SSH key pairs</td><td><code>ssh-keygen -t ed25519 -C "you@example.com"</code></td></tr>
+          <tr><td><code>ssh-copy-id</code></td><td>Install your public key on a remote server</td><td><code>ssh-copy-id user@host</code></td></tr>
+          <tr><td><code>scp</code></td><td>Copy files via SSH</td><td><code>scp file user@host:/tmp/</code></td></tr>
+          <tr><td><code>sftp</code></td><td>Interactive file transfer over SSH</td><td><code>sftp user@host</code></td></tr>
+          <tr><td><code>rsync</code></td><td>Efficient file sync over local or SSH</td><td><code>rsync -avz --progress user@host:/data /backup/</code></td></tr>
+          <tr><td><code>nc (netcat)</code></td><td>Network utility for reading/writing across networks</td><td><code>nc -l 12345</code></td></tr>
+          <tr><td><code>ncat</code></td><td>Netcat implementation w/ SSL and more (nmap package)</td><td><code>ncat -l 12345</code></td></tr>
+          <tr><td><code>nmap</code></td><td>Network exploration and security auditing</td><td><code>sudo nmap -sS -p 1-65535 host</code></td></tr>
+          <tr><td><code>ethtool</code></td><td>Query or control network driver and hardware settings</td><td><code>sudo ethtool eth0</code></td></tr>
+          <tr><td><code>iw</code></td><td>Configure wireless devices</td><td><code>iw dev</code></td></tr>
+          <tr><td><code>nmcli</code></td><td>NetworkManager CLI</td><td><code>nmcli device status</code></td></tr>
+          <tr><td><code>netplan</code></td><td>Network configuration tool for Ubuntu (yaml files)</td><td><code>sudo netplan apply</code></td></tr>
+          <tr><td><code>arp</code></td><td>Show/modify ARP table</td><td><code>arp -a</code></td></tr>
+          <tr><td><code>route</code></td><td>Show/manipulate IP routing table (legacy, use ip route)</td><td><code>route -n</code></td></tr>
+          <tr><td><code>route -n</code></td><td>Legacy view of routing table (numeric)</td><td><code>route -n</code></td></tr>
+        </tbody>
+      </table>
+
+      <p class="small">SSH tips: use <code>~/.ssh/config</code> for host shortcuts and <code>ControlMaster</code>/<code>ControlPath</code> for multiplexing. For debugging SSH: <code>ssh -vvv user@host</code>.</p>
+    </details>
+  </section>
+
+  <!-- SECTION: Storage & LVM -->
+  <section id="storage" class="card">
+    <details>
+      <summary>💾 Disks, Storage & LVM</summary>
+      <div class="meta">Block device tools, filesystem creation, partitioning, LVM, and RAID helpers.</div>
+      <table class="cmdtable">
+        <thead><tr><th>Command</th><th>Description</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>lsblk</code></td><td>List block devices and mounts</td><td><code>lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT</code></td></tr>
+          <tr><td><code>blkid</code></td><td>Print block device attributes like UUID and TYPE</td><td><code>sudo blkid /dev/sdb1</code></td></tr>
+          <tr><td><code>fdisk</code></td><td>Partition table manipulator for MBR/GPT devices</td><td><code>sudo fdisk /dev/sda</code></td></tr>
+          <tr><td><code>parted</code></td><td>Partition editor (GPT aware)</td><td><code>sudo parted /dev/sda mklabel gpt</code></td></tr>
+          <tr><td><code>mkfs.ext4</code></td><td>Create ext4 filesystem</td><td><code>sudo mkfs.ext4 /dev/sdb1</code></td></tr>
+          <tr><td><code>mkfs.xfs</code></td><td>Create XFS filesystem</td><td><code>sudo mkfs.xfs /dev/sdb1</code></td></tr>
+          <tr><td><code>mount</code></td><td>Attach filesystem to directory tree</td><td><code>sudo mount /dev/sdb1 /mnt/usb</code></td></tr>
+          <tr><td><code>umount</code></td><td>Detach filesystem</td><td><code>sudo umount /mnt/usb</code></td></tr>
+          <tr><td><code>df -h</code></td><td>Show disk usage (human readable)</td><td><code>df -h</code></td></tr>
+          <tr><td><code>du -sh</code></td><td>Show size of folder</td><td><code>du -sh /var/log</code></td></tr>
+          <tr><td><code>fsck</code></td><td>File system consistency check and repair</td><td><code>sudo fsck -f /dev/sdb1</code></td></tr>
+          <tr><td><code>tune2fs</code></td><td>Tune ext2/3/4 filesystem parameters</td><td><code>sudo tune2fs -c 0 /dev/sda1</code></td></tr>
+          <tr><td><code>mount -o remount,ro</code></td><td>Remount a filesystem read-only</td><td><code>sudo mount -o remount,ro /</code></td></tr>
+          <tr><td><code>cryptsetup</code></td><td>Manage encrypted LUKS volumes</td><td><code>sudo cryptsetup luksFormat /dev/sdb1</code></td></tr>
+          <tr><td><code>pvcreate</code></td><td>Create a physical volume for LVM</td><td><code>sudo pvcreate /dev/sdb1</code></td></tr>
+          <tr><td><code>vgcreate</code></td><td>Create a volume group</td><td><code>sudo vgcreate vgdata /dev/sdb1</code></td></tr>
+          <tr><td><code>lvcreate</code></td><td>Create logical volumes</td><td><code>sudo lvcreate -n datalv -L 100G vgdata</code></td></tr>
+          <tr><td><code>lvextend</code></td><td>Extend logical volume</td><td><code>sudo lvextend -L +20G /dev/vgdata/datalv</code></td></tr>
+          <tr><td><code>resize2fs</code></td><td>Resize ext2/3/4 filesystem to match LV size</td><td><code>sudo resize2fs /dev/vgdata/datalv</code></td></tr>
+          <tr><td><code>mdadm</code></td><td>Manage Linux software RAID arrays</td><td><code>sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1</code></td></tr>
+          <tr><td><code>btrfs</code></td><td>Subcommand suite for BTRFS filesystems</td><td><code>sudo btrfs filesystem df /mnt</code></td></tr>
+          <tr><td><code>mount -t tmpfs</code></td><td>Mount tmpfs (RAM-backed filesystem)</td><td><code>sudo mount -t tmpfs -o size=1G tmpfs /mnt/ramdisk</code></td></tr>
+        </tbody>
+      </table>
+
+      <p class="small">Storage tips: always backup critical data before partitioning or formatting. Use LVM snapshots for safe backups, and test fsck on unmounted partitions.</p>
+    </details>
+  </section>
+
+  <!-- SECTION: Security, Encryption & Firewall -->
+  <section id="security" class="card">
+    <details>
+      <summary>🔐 Security, Encryption & Firewall</summary>
+      <div class="meta">Common tools for system hardening, SSH security, firewalls, encryption, and auditing.</div>
+      <table class="cmdtable">
+        <thead><tr><th>Command</th><th>Description</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>ufw</code></td><td>Uncomplicated Firewall — simple interface to iptables/nftables</td><td><code>sudo ufw allow 22/tcp; sudo ufw enable</code></td></tr>
+          <tr><td><code>iptables</code></td><td>Legacy firewall packet filtering (powerful)</td><td><code>sudo iptables -L -n -v</code></td></tr>
+          <tr><td><code>nft</code></td><td>nftables modern packet filtering framework</td><td><code>sudo nft list ruleset</code></td></tr>
+          <tr><td><code>fail2ban-client</code></td><td>Manage fail2ban (protect services from brute-force)</td><td><code>sudo fail2ban-client status sshd</code></td></tr>
+          <tr><td><code>ssh-keygen</code></td><td>Generate SSH key pairs (ed25519, rsa)</td><td><code>ssh-keygen -t ed25519 -C "you@example.com"</code></td></tr>
+          <tr><td><code>ssh-copy-id</code></td><td>Install public key on remote server for passwordless login</td><td><code>ssh-copy-id user@host</code></td></tr>
+          <tr><td><code>sshd_config</code></td><td>/etc/ssh/sshd_config — edit to harden SSH (e.g., <code>PasswordAuthentication no</code>)</td><td><code>sudo nano /etc/ssh/sshd_config</code></td></tr>
+          <tr><td><code>openssl</code></td><td>Toolkit for SSL/TLS, certificates and crypto</td><td><code>openssl req -new -x509 -days 365 -key key.pem -out cert.pem</code></td></tr>
+          <tr><td><code>gpg</code></td><td>OpenPGP encryption and signing</td><td><code>gpg --generate-key</code></td></tr>
+          <tr><td><code>cryptsetup</code></td><td>Manage LUKS encrypted block devices</td><td><code>sudo cryptsetup luksFormat /dev/sdb1</code></td></tr>
+          <tr><td><code>auditctl</code></td><td>Control Audit subsystem (auditd)</td><td><code>sudo auditctl -w /etc/shadow -p wa</code></td></tr>
+          <tr><td><code>ausearch</code></td><td>Search audit logs</td><td><code>sudo ausearch -f /etc/shadow</code></td></tr>
+          <tr><td><code>selinux</code></td><td>SELinux userspace tools (if enabled on distro)</td><td><code>getenforce</code></td></tr>
+          <tr><td><code>apparmor</code></td><td>AppArmor profile management (Ubuntu default)</td><td><code>sudo aa-status</code></td></tr>
+          <tr><td><code>ufw status verbose</code></td><td>Show detailed UFW status</td><td><code>sudo ufw status verbose</code></td></tr>
+          <tr><td><code>chkrootkit</code></td><td>Rootkit scanner</td><td><code>sudo chkrootkit</code></td></tr>
+          <tr><td><code>rkhunter</code></td><td>Rootkit Hunter scanner</td><td><code>sudo rkhunter --check</code></td></tr>
+        </tbody>
+      </table>
+
+      <p class="small">Security note: use SSH keys with strong passphrases, restrict root login, apply least privilege for sudoers, and run regular security scans and updates.</p>
+    </details>
+  </section>
+
+  <!-- SECTION: Development & Build Tools -->
+  <section id="dev" class="card">
+    <details>
+      <summary>🧱 Development & Build Tools</summary>
+      <div class="meta">Compilers, build systems, package managers, version control, and language runtimes.</div>
+      <table class="cmdtable">
+        <thead><tr><th>Command</th><th>Description</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>git</code></td><td>Distributed version control</td><td><code>git clone https://github.com/user/repo.git</code></td></tr>
+          <tr><td><code>gcc</code></td><td>GNU C compiler</td><td><code>gcc -O2 main.c -o main</code></td></tr>
+          <tr><td><code>g++</code></td><td>GNU C++ compiler</td><td><code>g++ -O2 main.cpp -o app</code></td></tr>
+          <tr><td><code>make</code></td><td>Classic build automation</td><td><code>make -j$(nproc)</code></td></tr>
+          <tr><td><code>cmake</code></td><td>Cross-platform build system generator</td><td><code>cmake -S . -B build && cmake --build build</code></td></tr>
+          <tr><td><code>autoconf</code></td><td>Generate configure scripts</td><td><code>autoreconf -i</code></td></tr>
+          <tr><td><code>automake</code></td><td>Generate Makefile.in files</td><td><code>automake --add-missing</code></td></tr>
+          <tr><td><code>ld</code></td><td>GNU linker</td><td><code>ld -o app obj1.o obj2.o</code></td></tr>
+          <tr><td><code>objdump</code></td><td>Display binary contents</td><td><code>objdump -d a.out</code></td></tr>
+          <tr><td><code>nm</code></td><td>List symbols from object files</td><td><code>nm -C libmylib.a</code></td></tr>
+          <tr><td><code>python3</code></td><td>Run Python 3 interpreter</td><td><code>python3 -m venv .venv</code></td></tr>
+          <tr><td><code>pip3</code></td><td>Python package installer</td><td><code>pip3 install -r requirements.txt</code></td></tr>
+          <tr><td><code>node</code></td><td>Node.js runtime</td><td><code>node server.js</code></td></tr>
+          <tr><td><code>npm</code></td><td>Node package manager</td><td><code>npm install</code></td></tr>
+          <tr><td><code>yarn</code></td><td>Alternative JS package manager</td><td><code>yarn install</code></td></tr>
+          <tr><td><code>go</code></td><td>Go toolchain</td><td><code>go build ./cmd/app</code></td></tr>
+          <tr><td><code>cargo</code></td><td>Rust package manager and build tool</td><td><code>cargo build --release</code></td></tr>
+          <tr><td><code>makepkg</code></td><td>Arch build helper (not typical on Ubuntu)</td><td>—</td></tr>
+          <tr><td><code>docker</code></td><td>Container engine for packaging apps</td><td><code>docker build -t app:latest .</code></td></tr>
+          <tr><td><code>docker-compose</code></td><td>Define and run multi-container Docker applications</td><td><code>docker-compose up -d</code></td></tr>
+        </tbody>
+      </table>
+
+      <p class="small">Dev tips: use language-specific virtual environments (Python venv, Node nvm), pin dependencies, and use CI tools for reproducible builds.</p>
+    </details>
+  </section>
+
+  <!-- SECTION: Debugging & Profiling -->
+  <section id="debug" class="card">
+    <details>
+      <summary>🧰 Debugging, Profiling & Diagnostics</summary>
+      <div class="meta">Tools to trace, profile, inspect, and debug processes and system behaviour.</div>
+      <table class="cmdtable">
+        <thead><tr><th>Command</th><th>Description</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>strace</code></td><td>Trace system calls and signals</td><td><code>strace -f -p 1234</code></td></tr>
+          <tr><td><code>ltrace</code></td><td>Trace library calls</td><td><code>ltrace ./myapp</code></td></tr>
+          <tr><td><code>gdb</code></td><td>GNU debugger</td><td><code>gdb --args ./myapp arg1</code></td></tr>
+          <tr><td><code>perf</code></td><td>Performance counters and profiling</td><td><code>sudo perf top</code></td></tr>
+          <tr><td><code>valgrind</code></td><td>Memory debugging and profiling tool</td><td><code>valgrind --leak-check=full ./app</code></td></tr>
+          <tr><td><code>lsof</code></td><td>List open files (help find sockets, files in use)</td><td><code>sudo lsof -p 1234</code></td></tr>
+          <tr><td><code>tcpdump</code></td><td>Network packet capture (root)</td><td><code>sudo tcpdump -i eth0 port 80 -w capture.pcap</code></td></tr>
+          <tr><td><code>wireshark</code></td><td>Graphical packet analyzer (X required)</td><td><code>wireshark</code></td></tr>
+          <tr><td><code>systemtap</code></td><td>Advanced kernel tracing (stap scripts)</td><td><code>sudo stap -v script.stp</code></td></tr>
+          <tr><td><code>perf record</code></td><td>Record perf data for offline analysis</td><td><code>sudo perf record -a sleep 60</code></td></tr>
+          <tr><td><code>perf report</code></td><td>View recorded perf data</td><td><code>sudo perf report</code></td></tr>
+          <tr><td><code>gcore</code></td><td>Dump core of a running process</td><td><code>gcore -o core 1234</code></td></tr>
+          <tr><td><code>heaptrack</code></td><td>Heap memory profiler for C++ programs</td><td><code>heaptrack ./app</code></td></tr>
+          <tr><td><code>dstat</code></td><td>All-in-one system resource statistics</td><td><code>dstat -cdngy</code></td></tr>
+          <tr><td><code>iotop</code></td><td>Monitor disk I/O per process</td><td><code>sudo iotop -o</code></td></tr>
+          <tr><td><code>vmstat</code></td><td>Report virtual memory statistics</td><td><code>vmstat 1</code></td></tr>
+          <tr><td><code>htop</code></td><td>Interactive process viewer with CPU/mem charts</td><td><code>htop</code></td></tr>
+        </tbody>
+      </table>
+
+      <p class="small">Debug tip: combine tools — e.g., use <code>tcpdump</code> to capture traffic, then analyze with Wireshark; use <code>strace</code> to find failing syscalls and <code>gdb</code> to inspect memory/state.</p>
+    </details>
+  </section>
+
+  <!-- SECTION: Automation & Scripting -->
+  <section id="automation" class="card">
+    <details>
+      <summary>🧾 Automation, Scripting & Shell Utilities</summary>
+      <div class="meta">Bash, shell utilities, scheduling (cron/systemd timers), and text-processing helpers for automation.</div>
+      <table class="cmdtable">
+        <thead><tr><th>Command</th><th>Description</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>bash</code></td><td>GNU Bourne-Again SHell — run scripts</td><td><code>bash script.sh</code></td></tr>
+          <tr><td><code>sh</code></td><td>POSIX shell</td><td><code>sh script.sh</code></td></tr>
+          <tr><td><code>chmod +x</code></td><td>Make script executable</td><td><code>chmod +x backup.sh</code></td></tr>
+          <tr><td><code>crontab -e</code></td><td>Edit user cron table</td><td><code>crontab -e</code></td></tr>
+          <tr><td><code>crontab -l</code></td><td>List user cron jobs</td><td><code>crontab -l</code></td></tr>
+          <tr><td><code>at</code></td><td>Schedule one-off jobs</td><td><code>echo "bash /home/user/job.sh" | at now + 1 hour</code></td></tr>
+          <tr><td><code>systemctl --user</code></td><td>Run systemd units in per-user instance</td><td><code>systemctl --user enable --now mytimer.timer</code></td></tr>
+          <tr><td><code>awk</code></td><td>Powerful field-oriented processing language</td><td><code>awk -F, '{sum+=$3} END{print sum}' file.csv</code></td></tr>
+          <tr><td><code>sed</code></td><td>Stream editor for filtering and transforming text</td><td><code>sed -n '1,100p' file</code></td></tr>
+          <tr><td><code>grep</code></td><td>Search for patterns in files</td><td><code>grep -RIn \"TODO\" src/</code></td></tr>
+          <tr><td><code>xargs</code></td><td>Build and execute command lines from STDIN</td><td><code>cat urls.txt | xargs -P 8 -n 1 wget</code></td></tr>
+          <tr><td><code>tee</code></td><td>Read from stdin and write to stdout and files</td><td><code>./deploy | tee deploy.log</code></td></tr>
+          <tr><td><code>env</code></td><td>Run a command in modified environment</td><td><code>env VAR=value ./script</code></td></tr>
+          <tr><td><code>export</code></td><td>Set environment variables in shell</td><td><code>export PATH=$PATH:/opt/bin</code></td></tr>
+          <tr><td><code>source</code></td><td>Load shell functions/vars into current shell</td><td><code>source ~/.bashrc</code></td></tr>
+          <tr><td><code>mktemp</code></td><td>Create a secure temporary file/directory</td><td><code>tempfile=$(mktemp)</code></td></tr>
+          <tr><td><code>logger</code></td><td>Log messages to syslog from shell</td><td><code>logger \"Backup completed\"</code></td></tr>
+          <tr><td><code>expect</code></td><td>Automate interactive applications (scripts expect input)</td><td><code>expect script.exp</code></td></tr>
+          <tr><td><code>parallel</code></td><td>GNU Parallel — run jobs in parallel</td><td><code>parallel -j8 wget :::: urls.txt</code></td></tr>
+        </tbody>
+      </table>
+
+      <p class="small">Scripting tips: use <code>set -euo pipefail</code> at top of bash scripts to fail early, and always validate inputs. Use <code>mktemp</code> for temp files and <code>trap</code> to cleanup.</p>
+    </details>
+  </section>
+
+  <!-- SECTION: Misc -->
+  <section id="misc" class="card">
+    <details>
+      <summary>🧠 Miscellaneous & Fun Utilities</summary>
+      <div class="meta">A grab-bag of useful, lesser-known, or fun commands that frequently help admins and devs.</div>
+      <table class="cmdtable">
+        <thead><tr><th>Command</th><th>Description</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>man</code></td><td>View manual pages</td><td><code>man rsync</code></td></tr>
+          <tr><td><code>apropos</code></td><td>Search manual page names/descriptions</td><td><code>apropos firewall</code></td></tr>
+          <tr><td><code>whatis</code></td><td>Brief description from man database</td><td><code>whatis tar</code></td></tr>
+          <tr><td><code>watch</code></td><td>Run a command repeatedly and show output</td><td><code>watch -n 2 df -h</code></td></tr>
+          <tr><td><code>curl</code></td><td>Work with URLs (also used in API testing)</td><td><code>curl -s https://api.ipify.org</code></td></tr>
+          <tr><td><code>jq</code></td><td>Process and pretty-print JSON</td><td><code>curl -s ... | jq .</code></td></tr>
+          <tr><td><code>htop</code></td><td>Interactive process viewer</td><td><code>htop</code></td></tr>
+          <tr><td><code>neofetch</code></td><td>Display system info with ASCII art</td><td><code>neofetch</code></td></tr>
+          <tr><td><code>fortune</code></td><td>Show random quotes/fortunes</td><td><code>fortune | cowsay</code></td></tr>
+          <tr><td><code>cowsay</code></td><td>Make a cow say a message</td><td><code>cowsay \"hello\"</code></td></tr>
+          <tr><td><code>screen</code></td><td>Terminal multiplexer (older)</td><td><code>screen -S session</code></td></tr>
+          <tr><td><code>tmux</code></td><td>Modern terminal multiplexer</td><td><code>tmux new -s dev</code></td></tr>
+          <tr><td><code>ncdu</code></td><td>Interactive disk usage analyzer</td><td><code>ncdu /var</code></td></tr>
+          <tr><td><code>tldr</code></td><td>Concise examples for common commands (install tldr)</td><td><code>tldr tar</code></td></tr>
+          <tr><td><code>alias</code></td><td>Create command shortcuts</td><td><code>alias gs='git status'</code></td></tr>
+          <tr><td><code>env</code></td><td>Show environment variables</td><td><code>env | grep -i path</code></td></tr>
+        </tbody>
+      </table>
+
+      <p class="small">Misc tip: install <code>tldr</code> for short examples and <code>cheat.sh</code> (curl interface) to fetch quick snippets for commands.</p>
+    </details>
+  </section>
+
+  <footer>
+    <div>Generated: Ultimate Ubuntu Command Encyclopedia — Starter • <span class="small">Contains hundreds of practical commands across core system, users, systemd, network, storage, security, dev, debug, scripting, and misc tools.</span></div>
+    <div style="margin-top:6px" class="small">Want me to continue and produce the full 3,000+ entry encyclopedia as one searchable HTML (append more command families, & manpage excerpts)? Reply “continue” and I will append the next batch right here.</div>
+  </footer>
+</main>
+
+<script>
+  const q = document.getElementById('q');
+  const rows = Array.from(document.querySelectorAll('table.cmdtable tbody tr'));
+  q.addEventListener('input', filter);
+  function filter(){
+    const v = q.value.trim().toLowerCase();
+    if(!v){ rows.forEach(r => r.style.display=''); return; }
+    rows.forEach(r=>{
+      const t = r.innerText.toLowerCase();
+      r.style.display = t.indexOf(v) !== -1 ? '' : 'none';
+    });
+  }
+  function resetFilters(){ q.value=''; filter(); window.scrollTo(0,0); }
+  function scrollToId(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+  function expandAll(){ document.querySelectorAll('details').forEach(d=>d.open=true); }
+  function collapseAll(){ document.querySelectorAll('details').forEach(d=>d.open=false); }
+  // Simple keyboard shortcut: ctrl+k focuses search
+  window.addEventListener('keydown', (e)=>{ if(e.ctrlKey && e.key==='k'){ e.preventDefault(); q.focus(); }} );
+</script>
+</body>
+</html>
